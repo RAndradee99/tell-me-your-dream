@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -9,22 +9,22 @@
 <body>
   <div class="container">
 
-    <!-- 🌙 Apenas o logotipo -->
+    <!-- 🌙 Logotipo -->
     <div class="logo">
       <img src="moon-logo.png" alt="Logo" />
     </div>
 
-    <!-- 📝 Campo para o sonho -->
+    <!-- 📝 Campo para escrever o sonho -->
     <textarea
       id="dreamInput"
       placeholder="Me conte um pouco do seu sonho..."
     ></textarea>
 
-    <!-- 🔘 Botão para interpretar -->
-    <button onclick="sendDream()">Interpretar Sonho</button>
+    <!-- 🔘 Botão de enviar -->
+    <button onclick="sendDream()">Interpretar</button>
 
-    <!-- 📩 Resposta do servidor -->
-    <div id="response" class="response" style="display: none;"></div>
+    <!-- 📩 Resposta da IA -->
+    <div id="response" class="response justify-text" style="display: none;"></div>
 
   </div>
 

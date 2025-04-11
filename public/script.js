@@ -19,30 +19,46 @@ async function sendDream() {
 
 function typeWriterEffect(element, text, speed) {
   let i = 0;
+  element.classList.remove("justify-text");
+
   function type() {
     if (i < text.length) {
       element.innerHTML += text.charAt(i);
       i++;
       setTimeout(type, speed);
+    } else {
+      element.classList.add("justify-text");
+      removeCursor();
     }
   }
+
   type();
+}
+
+function removeCursor() {
+  const cursor = document.querySelector(".cursor");
+  if (cursor) cursor.remove();
 }
 
 let loadingInterval;
 
 function startLoading(element) {
   let dots = 0;
-  element.classList.add("loading"); // ✅ ADICIONA a classe
-  element.innerHTML = "Interpretando";
-  element.style.display = "block";
+  element.classList.add("loading");
+  element.style.display = "flex";
+  element.innerHTML = `<span id="loading-text">Interpretando</span>`;
+
+  const loadingText = document.getElementById("loading-text");
+
   loadingInterval = setInterval(() => {
     dots = (dots + 1) % 4;
-    element.innerHTML = "Interpretando" + ".".repeat(dots);
+    if (loadingText) {
+      loadingText.innerText = "Interpretando" + ".".repeat(dots);
+    }
   }, 400);
 }
 
 function stopLoading(element) {
   clearInterval(loadingInterval);
-  element.classList.remove("loading"); // ✅ REMOVE a classe
+  element.classList.remove("loading");
 }
