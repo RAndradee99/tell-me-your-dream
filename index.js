@@ -1,26 +1,22 @@
+
 const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
-const path = require('path');
 require('dotenv').config();
 const OpenAI = require('openai');
+const path = require('path');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// OpenAI
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
 });
 
-// Middlewares
 app.use(cors());
 app.use(bodyParser.json());
-
-// Serve arquivos estáticos da pasta public
 app.use(express.static(path.join(__dirname, 'public')));
 
-// Rota da API
 app.post('/interpret', async (req, res) => {
   const { dream } = req.body;
 
@@ -42,21 +38,10 @@ app.post('/interpret', async (req, res) => {
   }
 });
 
-// Fallback: sempre retorna index.html se a rota não for da API
-const fs = require('fs');
-
-app.use((req, res, next) => {
-  const filePath = path.join(__dirname, 'public', req.path);
-
-  if (fs.existsSync(filePath) && fs.lstatSync(filePath).isFile()) {
-    res.sendFile(filePath);
-  } else {
-    res.sendFile(path.join(__dirname, 'public', 'index.html'));
-  }
+app.get('/*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public/index.html'));
 });
 
-
-// Inicia o servidor
 app.listen(PORT, () => {
   console.log(`Servidor rodando em http://localhost:${PORT}`);
 });

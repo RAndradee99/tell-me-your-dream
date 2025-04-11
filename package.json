@@ -1,19 +1,17 @@
+
 {
-  "name": "tell-me-you-dream",
+  "name": "tell-me-your-dream",
   "version": "1.0.0",
   "description": "Site de interpretação de sonhos com OpenAI",
   "main": "index.js",
   "scripts": {
     "start": "node index.js"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
   "dependencies": {
-    "body-parser": "^2.2.0",
+    "body-parser": "^1.20.2",
     "cors": "^2.8.5",
-    "dotenv": "^16.5.0",
-    "express": "^5.1.0",
-    "openai": "^4.93.0"
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "openai": "^4.0.0"
   }
 }
