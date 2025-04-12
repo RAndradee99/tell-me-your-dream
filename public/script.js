@@ -14,6 +14,9 @@ async function sendDream() {
 
   stopLoading(responseDiv);
   responseDiv.innerHTML = '<span id="typewriter"></span>';
+  responseDiv.style.display = "block";
+  document.getElementById("shareContainer").style.display = "flex";
+
   typeWriterEffect(document.getElementById("typewriter"), data.result, 20);
 }
 
@@ -62,3 +65,24 @@ function stopLoading(element) {
   clearInterval(loadingInterval);
   element.classList.remove("loading");
 }
+
+// Resumo para o WhatsApp
+function gerarResumo(textoCompleto) {
+  const maxLength = 600;
+  let resumo = textoCompleto.substring(0, maxLength);
+  const ultimoPonto = resumo.lastIndexOf('.');
+
+  if (ultimoPonto > 100) {
+    resumo = resumo.substring(0, ultimoPonto + 1);
+  }
+
+  return `*Interpretador de Sonhos*\n\n${resumo.trim()}\n\n*Descubra o significado do seu sonho em:* app.eleveia.com.br`;
+}
+
+document.getElementById("shareButton").addEventListener("click", function () {
+  const textoCompleto = document.getElementById("response").innerText;
+  const resumo = gerarResumo(textoCompleto);
+  const mensagem = encodeURIComponent(resumo);
+  const linkWhatsApp = `https://wa.me/?text=${mensagem}`;
+  window.open(linkWhatsApp, "_blank");
+});
