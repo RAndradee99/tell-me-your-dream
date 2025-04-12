@@ -88,7 +88,6 @@ document.getElementById("shareButton").addEventListener("click", function () {
     navigator.share({
       title: 'Interpretador de Sonhos',
       text: resumo,
-      url: 'https://app.eleveia.com.br'
     }).catch((error) => console.log("Erro ao compartilhar:", error));
   } else {
     const mensagem = encodeURIComponent(resumo);
