@@ -66,7 +66,7 @@ function stopLoading(element) {
   element.classList.remove("loading");
 }
 
-// Resumo para o WhatsApp
+// 🔄 Gera um resumo com até 600 caracteres, com título e link em negrito
 function gerarResumo(textoCompleto) {
   const maxLength = 600;
   let resumo = textoCompleto.substring(0, maxLength);
@@ -76,13 +76,23 @@ function gerarResumo(textoCompleto) {
     resumo = resumo.substring(0, ultimoPonto + 1);
   }
 
-  return `*Interpretador de Sonhos*\n\n${resumo.trim()}\n\n*Descubra o significado do seu sonho em:* app.eleveia.com.br`;
+  return `*Interpretador de Sonhos*\n\n${resumo.trim()}\n\n*Descubra o significado do seu sonho em:* https://app.eleveia.com.br`;
 }
 
+// 📤 Compartilhar com Web Share API ou fallback pro WhatsApp
 document.getElementById("shareButton").addEventListener("click", function () {
   const textoCompleto = document.getElementById("response").innerText;
   const resumo = gerarResumo(textoCompleto);
-  const mensagem = encodeURIComponent(resumo);
-  const linkWhatsApp = `https://wa.me/?text=${mensagem}`;
-  window.open(linkWhatsApp, "_blank");
+
+  if (navigator.share) {
+    navigator.share({
+      title: 'Interpretador de Sonhos',
+      text: resumo,
+      url: 'https://app.eleveia.com.br'
+    }).catch((error) => console.log("Erro ao compartilhar:", error));
+  } else {
+    const mensagem = encodeURIComponent(resumo);
+    const linkWhatsApp = `https://wa.me/?text=${mensagem}`;
+    window.open(linkWhatsApp, "_blank");
+  }
 });
